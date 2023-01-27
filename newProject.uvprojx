@@ -574,6 +574,12 @@
           <targetInfo name="Target 1"/>
         </targetInfos>
       </component>
+      <component Cclass="Device" Cgroup="GD32F30x_libopt" Cvendor="GigaDevice" Cversion="2.2.0" condition="GD32F30x CMSIS">
+        <package name="GD32F30x_DFP" schemaVersion="1.1" url="https://gd32mcu.com/data/documents/pack/" vendor="GigaDevice" version="2.2.1"/>
+        <targetInfos>
+          <targetInfo name="Target 1"/>
+        </targetInfos>
+      </component>
       <component Cclass="Device" Cgroup="Startup" Cvendor="GigaDevice" Cversion="2.2.0" condition="GD32F30xCL">
         <package name="GD32F30x_DFP" schemaVersion="1.1" url="https://gd32mcu.com/data/documents/pack/" vendor="GigaDevice" version="2.2.1"/>
         <targetInfos>
