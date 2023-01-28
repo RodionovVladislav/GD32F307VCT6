@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\CMSIS\GD\GD32F30x\Include;.\CMSIS\GD\GD32F30x\Source;.\GD32F30x_standard_peripheral;.\GD32F30x_standard_peripheral\Include;.\GD32F30x_standard_peripheral\Source;.\user\inc;.\user\src</IncludePath>
+              <IncludePath>.\CMSIS\GD\GD32F30x\Include;.\CMSIS\GD\GD32F30x\Source;.\GD32F30x_standard_peripheral;.\GD32F30x_standard_peripheral\Include;.\GD32F30x_standard_peripheral\Source;.\user\inc;.\user\src;.\Utilities</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -540,6 +540,41 @@
               <FileName>startup_gd32f30x_cl.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\CMSIS\GD\GD32F30x\Source\ARM\startup_gd32f30x_cl.s</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>New Group</GroupName>
+          <Files>
+            <File>
+              <FileName>gd32f303e_eval.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Utilities\gd32f303e_eval.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f303e_eval.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Utilities\gd32f303e_eval.h</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f307c_eval.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Utilities\gd32f307c_eval.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f307c_eval.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Utilities\gd32f307c_eval.h</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f307c_lcd_eval.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Utilities\gd32f307c_lcd_eval.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f307c_lcd_eval.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Utilities\gd32f307c_lcd_eval.h</FilePath>
             </File>
           </Files>
         </Group>
