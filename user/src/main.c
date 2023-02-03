@@ -1,6 +1,7 @@
 #include "gd32f30x.h"                   // Device header
 #include "gd32f30x_libopt.h"
 #include "gd32f307c_eval.h"
+#include "systick.h"
 #include <stdint.h>
 
 #define DEVICE_ID ((uint32_t) 0x1FFFF7E0)
@@ -16,7 +17,11 @@ uint16_t timer_dt_inc = 0x008F;
 uint16_t presceler_value = 0;
 timer_oc_parameter_struct timer_ocinitpara;
 
-void button_exint_init(void);
+void pb9_output_init(void);
+uint32_t pb9_remap = 0;
+
+
+void button_exti_init(void);
 void button_isr(void);
 
 void chipid_test(void);
@@ -29,34 +34,48 @@ void gpio_blink(uint16_t ms_on, uint16_t ms_off);
 
 
 
-
-void button_exint_init(void)
+void pb9_output_init(void)
 {
-	
-	
-	
-	gpio_exti_source_select(GPIO_PORT_SOURCE_GPIOA, GPIO_PIN_SOURCE_0);
+  gpio_init(GPIOB, GPIO_MODE_OUT_PP, GPIO_OSPEED_10MHZ,GPIO_PIN_9);
 }
 
 
-void pb9_output_init(void)
+void button_exti_init(void)
 {
-  FlagStatus bit_state;
-  bit_state = gpio_output_bit_get(GPIOB,GPIO_PIN_9);
+	exti_init(EXTI_0, EXTI_INTERRUPT, EXTI_TRIG_RISING);
+	
+	rcu_periph_clock_enable(RCU_GPIOA);
+	gpio_exti_source_select(GPIO_PORT_SOURCE_GPIOA, GPIO_PIN_SOURCE_0);
+	
+	nvic_priority_group_set(NVIC_PRIGROUP_PRE0_SUB4);
+	nvic_irq_enable(WWDGT_IRQn, 0, 0);
 }
 
 
 void button_isr(void)
 {
-  delay(5);
+  delay_1ms(5);
   exti_flag_clear(EXTI_0);
-  if(SET == gpio_input_data_bit_read(USER_BUTTON_PORT, USER_BUTTON_PIN))
+  if(SET == gpio_input_bit_get(GPIOA, GPIO_PIN_0))
   {
     if(g_speed == SLOW)
       g_speed = FAST;
     else
       g_speed = SLOW;
   }
+}
+
+void EXTI0_IRQHandler(void)
+{
+	button_isr();
+}
+
+void gpio_blink(uint16_t ms_on, uint16_t ms_off)
+{
+	gpio_bit_set();
+	delay_1ms(ms_on);
+	gpio_bit_reset();
+	delay_1ms(ms_off);
 }
 
 
