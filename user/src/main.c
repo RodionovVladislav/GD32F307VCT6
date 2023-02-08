@@ -37,16 +37,17 @@ void tmr3_ch3_change_dt(void);
 void pb9_mux_init(void);
 void timer3_test(uint8_t n_cycles);
 
-//void pb9_init(gpio_mode_type mode);
-//void pb9_remap_set(uint32_t remap);
-//void pb9_remap_reset(void);
+void pb9_init(MODE);
+void pb9_remap_set(uint32_t remap);
+void pb9_remap_reset(void);
 //void pb9_mux_init(void);
 
 
 
 void pb9_output_init(void)
 {
-  gpio_init(GPIOB, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ,GPIO_PIN_9);
+	FlagStatus pb9_mode;
+  pb9_mode = gpio_output_bit_get(GPIOB, GPIO_PIN_9);
 }
 
 
@@ -206,15 +207,58 @@ void timer3_test(uint8_t n_cycles)
 }
 
 
-void pb9_init(gpio_mode_type mode)
+void pb9_init(MODE)
 {
+	/* enable the gpiob clock */
+	rcu_periph_clock_enable(GPIOB);
 	
+	gpio_init (GPIOB, MODE, GPIO_OSPEED_50MHZ, GPIO_PIN_9);
+}
+
+
+void pb9_remap_set(uint32_t remap)
+{
+	  if (remap != 0)
+  {
+	pb9_remap = remap;
+    gpio_pin_remap_config(pb9_remap, ENABLE);
+  }
+}
+
+
+void pb9_remap_reset(void)
+{
+	  if (pb9_remap != 0)
+  {
+    gpio_pin_remap_config(pb9_remap, DISABLE);
+    pb9_remap = 0;
+  }
+}
+
+/**
+  * @brief  PB9 initialization for OUTPUT functions.
+  * @param  none
+  * @retval none
+  */
+void pb9_out_init(void)
+{
+  pb9_init(GPIO_MODE_OUT_PP);
 }
 
 
 void pb9_mux_init(void)
 {
 	
+}
+
+/**
+  * @brief  generates uint with n set bits (from 0x0 to 0xFFFFFFFF)
+  * @param  n: number of bits to set (from 0 to 32)
+  * @retval uint with n set bits
+  */
+uint32_t get_n_bits(uint8_t n)
+{
+  return n < 32 ? (1 << n) - 1 : 0xFFFFFFFF;
 }
 
 
