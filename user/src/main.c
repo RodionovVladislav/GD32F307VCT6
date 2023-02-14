@@ -264,13 +264,13 @@ uint32_t get_n_bits(uint8_t n)
 
 int main(void) 
 {
-	
-	
+	chipid_test();
+  flash_test();
 	
 	while(1)
 	{
-	  
-		
+    gpio_test(2, 500);
+    timer3_test(1);
 		
 	}
 }
